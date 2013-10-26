@@ -8,25 +8,27 @@ public class DelangMain {
 	{
 		Logger logger = LoggerFactory.getLogger(Delang.class);
 		logger.info("Start DeLANG Interpreter...");
+		DelangSetting setting = new DelangSetting();
+		setting.init();
 	    Delang parser = new Delang(System.in);
 	    while(true)
 	    {
-	    	System.out.println("DeLANG>>");
+	    	System.out.print("DeLANG>>");
 			  try
 			  {
 				  Delang.statement();
 			  }
 			  catch (Exception e)
 			  {
-				  System.out.println("NOK.");
+				  logger.error("Error occured while parsing. Program Exit");
 				  System.out.println(e.getMessage());
-				  Delang.ReInit(System.in);
+				  break;
 			  }
 			  catch (Error e)
 			  {
-				  System.out.println("Oops.");
+				  logger.warn("Invalid Syntax");
 				  System.out.println(e.getMessage());
-				  break;
+				  Delang.ReInit(System.in);
 			  }
 	    }
 	}
